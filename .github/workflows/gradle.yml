@@ -7,11 +7,20 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 19
+      uses: actions/setup-java@v4
+      with:
+        java-version: '19'
+        distribution: 'temurin' 
+##Lint code need to be integrated with out Java application
+      
+  build_and _test:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 19
@@ -30,6 +39,7 @@ jobs:
     - name: Gradle test
       run: ./gradlew test
 
+#Integration with Sonarcloud
   sonarCloudTrigger:
     name: SonarCloud Trigger
     runs-on: ubuntu-latest
